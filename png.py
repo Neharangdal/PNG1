@@ -77,8 +77,8 @@ prefix = st.text_input("Prefix (Optional)", placeholder="Enter prefix like M2750
 if "num_columns" not in st.session_state:
     st.session_state.num_columns = 1
 
-# Add/Remove column buttons side-by-side
-col1, col2, _ = st.columns([1.5, 1.5, 7])
+# Add/Remove column buttons side-by-side with better sizing
+col1, col2, _ = st.columns([2, 2, 6])
 with col1:
     if st.button("➕ Add Column", use_container_width=True):
         st.session_state.num_columns += 1
@@ -89,6 +89,8 @@ with col2:
         if st.button("➖ Remove Column", use_container_width=True):
             st.session_state.num_columns -= 1
             st.toast("Column removed ⚠️")
+    else:
+        st.markdown("&nbsp;", unsafe_allow_html=True)  # Placeholder to maintain layout
 
 # Input Columns
 columns_data = []
