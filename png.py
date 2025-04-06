@@ -1,28 +1,40 @@
 import streamlit as st
-import csv
+import pandas as pd
 import itertools
 import io
+import csv
 
-st.set_page_config(page_title="Custom Part Number Generator", layout="centered")
-st.title("🔢 Custom Part Number Generator")
+st.set_page_config(page_title="Generate Part Numbers", layout="wide")
 
-# New input for prefix
-prefix = st.text_input("Enter Part Number Prefix (e.g. M27500)", "M27500")
+st.title("🔢 Generate Part Numbers")
+st.write("Add values separated by commas in each column. You can enter letters, numbers, or symbols.")
 
-st.markdown("Enter comma-separated values for each column below:")
+# 🔹 Optional prefix
+prefix = st.text_input("Prefix (Optional)", placeholder="e.g., M27500-")
 
-# Input boxes for each column
-col1 = st.text_area("Column 1 (e.g. -,A,B,...)", "-,A,B,C,D,E,F,G,H,J,K,L,M,N,P,R,S,T,U,V")
-col2 = st.text_area("Column 2 (e.g. 26,24,...)", "26,24,22,20,18,16,14,12,10,8,6,4,2,1,01,02,03,04")
-col3 = st.text_area("Column 3 (e.g. WB,WC,...)", "WB,WC,WE,WF,WG,WH,WJ,WK,WL,WM,WN,WP,WR")
-col4 = st.text_area("Column 4 (e.g. 1,2,...)", "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15")
-col5 = st.text_area("Column 5 (e.g. A,B,...)", "A,B,C,D,E,F,G,H,I,J,K,L,M,N,P,Q,R,S,T,U,V,W,X,Y,Z,HD,HS,ND,NF")
-col6 = st.text_area("Column 6 (e.g. 00,06,...)", "00,06,07,11,12,24,56,61,62,74")
+# 🔹 Session state to track number of columns
+if "num_columns" not in st.session_state:
+    st.session_state.num_columns = 1
 
+# 🔹 Add Column button
+if st.button("➕ Add Column"):
+    st.session_state.num_columns += 1
+
+# 🔹 Create text areas for each column
+columns_data = []
+for i in range(st.session_state.num_columns):
+    user_input = st.text_area(
+        f"Column {i + 1}",
+        placeholder="Add values separated by commas (e.g., A,B,C or 1,2,3)",
+        key=f"col_{i}"
+    )
+    columns_data.append(user_input)
+
+# 🔹 Generate CSV using original logic
 if st.button("🚀 Generate CSV"):
     try:
         # Convert inputs to lists
-        cols = [c.strip().split(",") for c in [col1, col2, col3, col4, col5, col6]]
+        cols = [col.strip().split(",") for col in columns_data if col.strip()]
 
         # Generate combinations
         combinations = itertools.product(*cols)
@@ -35,12 +47,14 @@ if st.button("🚀 Generate CSV"):
             writer.writerow([prefix + ''.join(combo)])
 
         # Download button
-        st.success("✅ CSV file generated successfully!")
         st.download_button(
             label="📥 Download CSV",
             data=output.getvalue(),
-            file_name="part_number_combinations.csv",
+            file_name="part_numbers.csv",
             mime="text/csv"
         )
+
+        st.success(f"CSV generated successfully with {len(list(itertools.product(*cols)))} part numbers!")
+
     except Exception as e:
-        st.error(f"⚠️ Error: {e}")
+        st.error(f"An error occurred: {e}")
