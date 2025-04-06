@@ -78,7 +78,7 @@ if "num_columns" not in st.session_state:
     st.session_state.num_columns = 1
 
 # Add/Remove column buttons side-by-side
-col1, col2, _ = st.columns([1, 1, 8])
+col1, col2, _ = st.columns([1, 1])
 with col1:
     if st.button("➕ Add Column"):
         st.session_state.num_columns += 1
