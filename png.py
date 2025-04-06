@@ -10,51 +10,57 @@ st.set_page_config(page_title="Part Number Generator", layout="wide")
 # Custom styling (light background for inputs + button styling)
 st.markdown("""
     <style>
+    /* Main background to stay light (optional, uncomment if needed) */
+    /* .main {
+        background-color: #f5f5f5;
+    } */
+
+    /* Text input and text area styling */
+    .stTextInput > div > div > input,
+    .stTextArea > div > textarea {
+        background-color: white !important;
+        color: black;
+        border: 1.5px solid black;
+        border-radius: 8px;
+        padding: 10px;
+        box-shadow: none !important;
+    }
+
+    .stTextInput > div > div > input::placeholder,
+    .stTextArea > div > textarea::placeholder {
+        color: #444 !important;
+        font-style: italic;
+    }
+
     /* Button Styling */
     div.stButton > button {
-        background-color: #2C3E50; /* Dark navy */
+        background-color: #2C3E50;
         color: white;
         border: none;
         border-radius: 8px;
-        padding: 0.5em 1.5em;
+        padding: 0.6em 1.5em;
         font-weight: 500;
         transition: 0.3s ease;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     div.stButton > button:hover {
-        background-color: #1A252F; /* Even darker on hover */
+        background-color: #1A252F;
         color: white;
     }
 
     div.stButton > button:focus {
-        color: white !important;
         background-color: #1A252F !important;
+        color: white !important;
         box-shadow: none;
     }
 
-    /* Text Areas & Inputs */
-    textarea, input {
-        background-color: white;
-        border: 1.5px solid black;
-        border-radius: 6px;
-        padding: 10px;
-        font-size: 15px;
-    }
-
-    textarea::placeholder, input::placeholder {
-        color: #444;
-        font-style: italic;
-    }
-
-    /* Margin for cleaner layout */
-    .stButton {
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
+    /* Optional: Tweak spacing */
+    .stTextArea {
+        margin-bottom: 10px;
     }
     </style>
 """, unsafe_allow_html=True)
-
 
 
 # Title & instructions
