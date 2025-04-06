@@ -26,10 +26,13 @@ st.markdown("""
         font-style: italic;
     }
     
-    /* Hide 'Press Ctrl+Enter to apply' message under text_area */
-    textarea:focus + div > p {
+   
+    /* Completely hide the 'Press Ctrl+Enter to apply' message under text areas */
+    [data-testid="stTextArea"] > div > div > div:nth-child(2) {
     display: none !important;
     }
+
+
     
     div.stButton > button {
         background-color: #2C3E50;
