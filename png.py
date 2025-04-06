@@ -25,6 +25,11 @@ st.markdown("""
         color: #444 !important;
         font-style: italic;
     }
+    /* Hide Ctrl+Enter hint only inside text_area widgets */
+     div[data-baseweb="textarea"] ~ div > div > p {
+     display: none;
+    }
+
 
 
     div.stButton > button {
