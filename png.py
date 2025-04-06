@@ -12,46 +12,49 @@ st.markdown("""
     <style>
     /* Button Styling */
     div.stButton > button {
-        background-color: #4db6ac; /* soft teal */
+        background-color: #2C3E50; /* Dark navy */
         color: white;
         border: none;
         border-radius: 8px;
         padding: 0.5em 1.5em;
         font-weight: 500;
-        transition: 0.3s;
+        transition: 0.3s ease;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     }
+
     div.stButton > button:hover {
-        background-color: #00897b; /* deeper teal */
+        background-color: #1A252F; /* Even darker on hover */
         color: white;
     }
+
     div.stButton > button:focus {
-    color: white !important;
-    background-color: #00897b !important;
-    box-shadow: none;
+        color: white !important;
+        background-color: #1A252F !important;
+        box-shadow: none;
     }
 
+    /* Text Areas & Inputs */
+    textarea, input {
+        background-color: white;
+        border: 1.5px solid black;
+        border-radius: 6px;
+        padding: 10px;
+        font-size: 15px;
+    }
 
-    /* Placeholder Styling */
     textarea::placeholder, input::placeholder {
-        color: #666;
+        color: #444;
         font-style: italic;
     }
 
-    /* Text Area Styling */
-    textarea, input {
-        background-color: #f9f9f9;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        padding: 8px;
-    }
-
-    /* Remove unnecessary spacing around buttons */
+    /* Margin for cleaner layout */
     .stButton {
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 
 # Title & instructions
