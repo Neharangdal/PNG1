@@ -9,23 +9,44 @@ st.set_page_config(page_title="Part Number Generator", layout="wide")
 
 # Custom styling (light background for inputs + button styling)
 st.markdown("""
-<style>
-textarea {
-    background-color: #f2f2f2 !important;
-    border-radius: 6px;
-}
-div.stButton > button {
-    background-color: #4B7BEC;
-    color: white;
-    border: none;
-    padding: 0.5em 1em;
-    border-radius: 6px;
-}
-div.stButton:hover > button {
-    background-color: #3A5FDB;
-}
-</style>
+    <style>
+    /* Button Styling */
+    div.stButton > button {
+        background-color: #4db6ac; /* soft teal */
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 0.5em 1.5em;
+        font-weight: 500;
+        transition: 0.3s;
+    }
+    div.stButton > button:hover {
+        background-color: #00897b; /* deeper teal */
+        color: white;
+    }
+
+    /* Placeholder Styling */
+    textarea::placeholder, input::placeholder {
+        color: #666;
+        font-style: italic;
+    }
+
+    /* Text Area Styling */
+    textarea, input {
+        background-color: #f9f9f9;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        padding: 8px;
+    }
+
+    /* Remove unnecessary spacing around buttons */
+    .stButton {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    </style>
 """, unsafe_allow_html=True)
+
 
 # Title & instructions
 st.title("Part Number Generator")
