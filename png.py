@@ -78,15 +78,15 @@ if "num_columns" not in st.session_state:
     st.session_state.num_columns = 1
 
 # Add/Remove column buttons side-by-side
-col1, col2, _ = st.columns([1, 1])
+col1, col2, _ = st.columns([1.5, 1.5, 7])
 with col1:
-    if st.button("➕ Add Column"):
+    if st.button("➕ Add Column", use_container_width=True):
         st.session_state.num_columns += 1
         st.toast("Column added ✅")
 
 with col2:
     if st.session_state.num_columns > 1:
-        if st.button("➖ Remove Column"):
+        if st.button("➖ Remove Column", use_container_width=True):
             st.session_state.num_columns -= 1
             st.toast("Column removed ⚠️")
 
