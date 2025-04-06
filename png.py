@@ -80,14 +80,14 @@ if "button_clicked" not in st.session_state:
 
 # Buttons: Add/Remove Column
 btn_col1, btn_col2, _ = st.columns([1, 1, 8])
-with button_col1:
+with btn_col1:
     if st.button("➕ Add Column"):
         st.session_state.num_columns += 1
         st.toast("Column added ✅")
 
 # Show Remove button only if more than one column exists
 if st.session_state.num_columns > 1:
-    with button_col2:
+    with btn_col2:
         if st.button("➖ Remove Column"):
             st.session_state.num_columns -= 1
             st.toast("Column removed ⚠️")
