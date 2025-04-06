@@ -50,12 +50,13 @@ col1, col2 = st.columns([1, 1])
 with col1:
     if st.button("Add Column"):
         st.session_state.num_columns += 1
-        status_placeholder.success("✅ Column added!")
+        st.toast("✅ Column added!")
 
 with col2:
     if st.session_state.num_columns > 1 and st.button("Remove Column"):
         st.session_state.num_columns -= 1
-        status_placeholder.warning("🗑️ Column removed!")
+        st.toast("🗑️ Column removed!")
+
 
 # Input fields
 columns_data = []
