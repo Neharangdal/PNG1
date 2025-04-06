@@ -92,20 +92,6 @@ if st.session_state.num_columns > 1:
             st.session_state.num_columns -= 1
             st.toast("Column removed ⚠️")
 
-# Toast-style notification
-notif = st.empty()
-if add_clicked:
-    st.session_state.num_columns += 1
-    notif.success("Column added ✅")
-    time.sleep(1)
-    notif.empty()
-
-if remove_clicked and st.session_state.num_columns > 1:
-    st.session_state.num_columns -= 1
-    notif.warning("Column removed ⚠️")
-    time.sleep(1)
-    notif.empty()
-
 # Input Columns
 columns_data = []
 for i in range(st.session_state.num_columns):
