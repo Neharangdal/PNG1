@@ -3,7 +3,6 @@ import pandas as pd
 import itertools
 import csv
 import io
-import time
 
 # Page setup
 st.set_page_config(page_title="Part Number Generator", layout="wide")
@@ -11,7 +10,6 @@ st.set_page_config(page_title="Part Number Generator", layout="wide")
 # Custom styling
 st.markdown("""
     <style>
-    /* Input Styling */
     .stTextInput > div > div > input,
     .stTextArea > div > textarea {
         background-color: white !important;
@@ -28,7 +26,6 @@ st.markdown("""
         font-style: italic;
     }
 
-    /* Button Styling */
     div.stButton > button {
         background-color: #2C3E50;
         color: white;
@@ -61,7 +58,7 @@ st.markdown("""
 st.title("Part Number Generator")
 st.markdown("""
 Enter values for each column below.  
-Use **commas** to separate multiple values (e.g., `A,B,C` or `1,2,3`).  
+Use **commas** to separate multiple values (e.g., A,B,C or 1,2,3).  
 You can input **letters**, **numbers**, or **symbols**.
 """)
 
@@ -71,23 +68,16 @@ prefix = st.text_input("Prefix (Optional)", placeholder="Enter prefix like M2750
 # Session state setup
 if "num_columns" not in st.session_state:
     st.session_state.num_columns = 1
-if "add_msg" not in st.session_state:
-    st.session_state.add_msg = ""
-if "remove_msg" not in st.session_state:
-    st.session_state.remove_msg = ""
-if "button_clicked" not in st.session_state:
-    st.session_state.button_clicked = ""
 
-# Buttons: Add/Remove Column
-btn_col1, btn_col2, _ = st.columns([1, 1, 8])
-with btn_col1:
+# Add/Remove column buttons side-by-side
+col1, col2, _ = st.columns([1, 1, 8])
+with col1:
     if st.button("➕ Add Column"):
         st.session_state.num_columns += 1
         st.toast("Column added ✅")
 
-# Show Remove button only if more than one column exists
-if st.session_state.num_columns > 1:
-    with btn_col2:
+with col2:
+    if st.session_state.num_columns > 1:
         if st.button("➖ Remove Column"):
             st.session_state.num_columns -= 1
             st.toast("Column removed ⚠️")
