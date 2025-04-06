@@ -24,6 +24,12 @@ st.markdown("""
         background-color: #00897b; /* deeper teal */
         color: white;
     }
+    div.stButton > button:focus {
+    color: white !important;
+    background-color: #00897b !important;
+    box-shadow: none;
+    }
+
 
     /* Placeholder Styling */
     textarea::placeholder, input::placeholder {
