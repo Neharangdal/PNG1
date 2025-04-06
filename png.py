@@ -85,7 +85,8 @@ with col1_btn:
     add_clicked = st.button("➕ Add Column", key="add_btn")
 
 with col2_btn:
-    remove_clicked = st.button("➖ Remove Column", key="remove_btn", disabled=st.session_state.num_columns == 1)
+    remove_disabled = st.session_state.num_columns == 1
+    remove_clicked = st.button("➖ Remove Column", key="remove_btn", disabled=remove_disabled)
 
 # Toast-style notification
 notif = st.empty()
@@ -100,17 +101,6 @@ if remove_clicked and st.session_state.num_columns > 1:
     notif.warning("Column removed ⚠️")
     time.sleep(1)
     notif.empty()
-
-# Feedback messages
-if st.session_state.button_clicked == "add":
-    st.success(st.session_state.add_msg)
-    st.session_state.add_msg = ""
-    st.session_state.button_clicked = ""
-
-elif st.session_state.button_clicked == "remove":
-    st.warning(st.session_state.remove_msg)
-    st.session_state.remove_msg = ""
-    st.session_state.button_clicked = ""
 
 # Input Columns
 columns_data = []
