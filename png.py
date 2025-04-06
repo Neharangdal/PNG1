@@ -4,10 +4,30 @@ import itertools
 import csv
 import io
 
-# Page configuration
+# Page setup
 st.set_page_config(page_title="Part Number Generator", layout="wide")
 
-# Header and instructions
+# Custom styling (light background for inputs + button styling)
+st.markdown("""
+<style>
+textarea {
+    background-color: #f2f2f2 !important;
+    border-radius: 6px;
+}
+div.stButton > button {
+    background-color: #4B7BEC;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 6px;
+}
+div.stButton:hover > button {
+    background-color: #3A5FDB;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# Title & instructions
 st.title("Part Number Generator")
 st.markdown("""
 Enter values for each column below.  
@@ -15,23 +35,29 @@ Use **commas** to separate multiple values (e.g., `A,B,C` or `1,2,3`).
 You can input **letters**, **numbers**, or **symbols**.
 """)
 
-# Optional prefix
-prefix = st.text_input("Prefix (Optional)", "M27500")
+# Optional prefix input
+prefix = st.text_input("Prefix (Optional)", placeholder="Enter prefix like M27500 or leave empty if not needed")
 
-# Track number of columns
+# Session state for column count
 if "num_columns" not in st.session_state:
     st.session_state.num_columns = 1
 
-# Buttons to add or remove columns
+# Status message container
+status_placeholder = st.empty()
+
+# Button row
 col1, col2 = st.columns([1, 1])
 with col1:
     if st.button("Add Column"):
         st.session_state.num_columns += 1
+        status_placeholder.success("✅ Column added!")
+
 with col2:
     if st.session_state.num_columns > 1 and st.button("Remove Column"):
         st.session_state.num_columns -= 1
+        status_placeholder.warning("🗑️ Column removed!")
 
-# Input areas (one per line)
+# Input fields
 columns_data = []
 for i in range(st.session_state.num_columns):
     input_text = st.text_area(
@@ -42,7 +68,7 @@ for i in range(st.session_state.num_columns):
     values = [v.strip() for v in input_text.split(",") if v.strip()]
     columns_data.append(values)
 
-# Generate button and CSV download
+# Generate CSV button
 if st.button("Generate CSV"):
     try:
         if all(columns_data) and all(len(col) > 0 for col in columns_data):
@@ -62,8 +88,8 @@ if st.button("Generate CSV"):
                 mime="text/csv"
             )
 
-            st.success(f"Generated {len(list(itertools.product(*columns_data)))} part numbers.")
+            st.success(f"✅ Successfully generated {len(list(itertools.product(*columns_data)))} part numbers.")
         else:
-            st.warning("Please make sure each column has at least one value.")
+            st.warning("⚠️ Please fill out all columns with at least one value.")
     except Exception as e:
-        st.error(f"Error: {e}")
+        st.error(f"❌ Error: {e}")
