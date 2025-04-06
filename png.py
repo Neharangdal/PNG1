@@ -10,15 +10,23 @@ st.set_page_config(page_title="Part Number Generator", layout="wide")
 # Custom styling
 st.markdown("""
     <style>
-    .stTextInput > div > div > input,
-    .stTextArea > div > textarea {
-        background-color: white !important;
-        color: black !important;
-        border: 1.5px solid black;
-        border-radius: 8px;
-        padding: 10px;
-        box-shadow: none !important;
-    }
+    /* Style for st.text_input */
+[data-testid="stTextInput"] input {
+    background-color: white !important;
+    color: black !important;
+    border: 1.5px solid black !important;
+    border-radius: 8px !important;
+    padding: 10px !important;
+}
+
+/* Style for st.text_area */
+textarea {
+    background-color: white !important;
+    color: black !important;
+    border: 1.5px solid black !important;
+    border-radius: 8px !important;
+    padding: 10px !important;
+}
 
     .stTextInput > div > div > input::placeholder,
     .stTextArea > div > textarea::placeholder {
