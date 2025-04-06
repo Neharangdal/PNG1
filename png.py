@@ -33,6 +33,22 @@ textarea {
         color: #444 !important;
         font-style: italic;
     }
+    /* Style for the Download CSV button */
+[data-testid="baseButton-primary"] {
+    background-color: #2C3E50 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 0.6em 1.5em !important;
+    font-weight: 500 !important;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2) !important;
+    transition: 0.3s ease !important;
+}
+
+[data-testid="baseButton-primary"]:hover {
+    background-color: #1A252F !important;
+    color: white !important;
+}
     
     div.stButton > button {
         background-color: #2C3E50;
