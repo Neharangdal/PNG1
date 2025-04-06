@@ -79,14 +79,18 @@ if "button_clicked" not in st.session_state:
     st.session_state.button_clicked = ""
 
 # Buttons: Add/Remove Column
-col1_btn, col2_btn = st.columns([1, 1])
+btn_col1, btn_col2, _ = st.columns([1, 1, 8])
+with button_col1:
+    if st.button("➕ Add Column"):
+        st.session_state.num_columns += 1
+        st.toast("Column added ✅")
 
-with col1_btn:
-    add_clicked = st.button("➕ Add Column", key="add_btn")
-
-with col2_btn:
-    remove_disabled = st.session_state.num_columns == 1
-    remove_clicked = st.button("➖ Remove Column", key="remove_btn", disabled=remove_disabled)
+# Show Remove button only if more than one column exists
+if st.session_state.num_columns > 1:
+    with button_col2:
+        if st.button("➖ Remove Column"):
+            st.session_state.num_columns -= 1
+            st.toast("Column removed ⚠️")
 
 # Toast-style notification
 notif = st.empty()
