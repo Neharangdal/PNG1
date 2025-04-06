@@ -25,10 +25,6 @@ st.markdown("""
         color: #444 !important;
         font-style: italic;
     }
-    /* Hide Ctrl+Enter hint in text_area */
-    [data-testid="stMarkdownContainer"] p {
-    display: none;
-    }
 
 
     div.stButton > button {
