@@ -3,6 +3,7 @@ import pandas as pd
 import itertools
 import csv
 import io
+import time
 
 # Page setup
 st.set_page_config(page_title="Part Number Generator", layout="wide")
@@ -79,17 +80,26 @@ if "button_clicked" not in st.session_state:
 
 # Buttons: Add/Remove Column
 col1_btn, col2_btn = st.columns([1, 1])
+
 with col1_btn:
-    if st.button("➕ Add Column", key="add_button"):
-        st.session_state.num_columns += 1
-        st.session_state.add_msg = "Column added!"
-        st.session_state.button_clicked = "add"
+    add_clicked = st.button("➕ Add Column", key="add_btn")
 
 with col2_btn:
-    if st.session_state.num_columns > 1 and st.button("➖ Remove Column", key="remove_button"):
-        st.session_state.num_columns -= 1
-        st.session_state.remove_msg = "Column removed!"
-        st.session_state.button_clicked = "remove"
+    remove_clicked = st.button("➖ Remove Column", key="remove_btn", disabled=st.session_state.num_columns == 1)
+
+# Toast-style notification
+notif = st.empty()
+if add_clicked:
+    st.session_state.num_columns += 1
+    notif.success("Column added ✅")
+    time.sleep(1)
+    notif.empty()
+
+if remove_clicked and st.session_state.num_columns > 1:
+    st.session_state.num_columns -= 1
+    notif.warning("Column removed ⚠️")
+    time.sleep(1)
+    notif.empty()
 
 # Feedback messages
 if st.session_state.button_clicked == "add":
