@@ -7,19 +7,14 @@ import io
 # Page setup
 st.set_page_config(page_title="Part Number Generator", layout="wide")
 
-# Custom styling (light background for inputs + button styling)
+# Custom styling
 st.markdown("""
     <style>
-    /* Main background to stay light (optional, uncomment if needed) */
-    /* .main {
-        background-color: #f5f5f5;
-    } */
-
-    /* Text input and text area styling */
+    /* Input Styling */
     .stTextInput > div > div > input,
     .stTextArea > div > textarea {
         background-color: white !important;
-        color: black;
+        color: black !important;
         border: 1.5px solid black;
         border-radius: 8px;
         padding: 10px;
@@ -50,20 +45,18 @@ st.markdown("""
     }
 
     div.stButton > button:focus {
-        background-color: #1A252F !important;
+        background-color: #2C3E50 !important;
         color: white !important;
         box-shadow: none;
     }
 
-    /* Optional: Tweak spacing */
     .stTextArea {
         margin-bottom: 10px;
     }
     </style>
 """, unsafe_allow_html=True)
 
-
-# Title & instructions
+# Title & Instructions
 st.title("Part Number Generator")
 st.markdown("""
 Enter values for each column below.  
@@ -71,30 +64,45 @@ Use **commas** to separate multiple values (e.g., `A,B,C` or `1,2,3`).
 You can input **letters**, **numbers**, or **symbols**.
 """)
 
-# Optional prefix input
+# Prefix input
 prefix = st.text_input("Prefix (Optional)", placeholder="Enter prefix like M27500 or leave empty if not needed")
 
-# Session state for column count
+# Session state setup
 if "num_columns" not in st.session_state:
     st.session_state.num_columns = 1
+if "add_msg" not in st.session_state:
+    st.session_state.add_msg = ""
+if "remove_msg" not in st.session_state:
+    st.session_state.remove_msg = ""
+if "button_clicked" not in st.session_state:
+    st.session_state.button_clicked = ""
 
-# Status message container
-status_placeholder = st.empty()
-
-# Button row
-col1, col2 = st.columns([1, 1])
-with col1:
-    if st.button("Add Column"):
+# Buttons: Add/Remove Column
+col1_btn, col2_btn = st.columns([1, 1])
+with col1_btn:
+    if st.button("➕ Add Column", key="add_button"):
         st.session_state.num_columns += 1
-        st.toast("✅ Column added!")
+        st.session_state.add_msg = "Column added!"
+        st.session_state.button_clicked = "add"
 
-with col2:
-    if st.session_state.num_columns > 1 and st.button("Remove Column"):
+with col2_btn:
+    if st.session_state.num_columns > 1 and st.button("➖ Remove Column", key="remove_button"):
         st.session_state.num_columns -= 1
-        st.toast("🗑️ Column removed!")
+        st.session_state.remove_msg = "Column removed!"
+        st.session_state.button_clicked = "remove"
 
+# Feedback messages
+if st.session_state.button_clicked == "add":
+    st.success(st.session_state.add_msg)
+    st.session_state.add_msg = ""
+    st.session_state.button_clicked = ""
 
-# Input fields
+elif st.session_state.button_clicked == "remove":
+    st.warning(st.session_state.remove_msg)
+    st.session_state.remove_msg = ""
+    st.session_state.button_clicked = ""
+
+# Input Columns
 columns_data = []
 for i in range(st.session_state.num_columns):
     input_text = st.text_area(
@@ -105,7 +113,7 @@ for i in range(st.session_state.num_columns):
     values = [v.strip() for v in input_text.split(",") if v.strip()]
     columns_data.append(values)
 
-# Generate CSV button
+# Generate CSV
 if st.button("Generate CSV"):
     try:
         if all(columns_data) and all(len(col) > 0 for col in columns_data):
