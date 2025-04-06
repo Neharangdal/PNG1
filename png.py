@@ -33,8 +33,8 @@ textarea {
         color: #444 !important;
         font-style: italic;
     }
-   /* Style specifically for Download CSV button */
-section[data-testid="stDownloadButton"] button {
+  /* Force styling on the download button */
+button[title="Download CSV"] {
     background-color: #2C3E50 !important;
     color: white !important;
     border: none !important;
@@ -45,11 +45,10 @@ section[data-testid="stDownloadButton"] button {
     transition: 0.3s ease !important;
 }
 
-section[data-testid="stDownloadButton"] button:hover {
+button[title="Download CSV"]:hover {
     background-color: #1A252F !important;
     color: white !important;
 }
-
     
     div.stButton > button {
         background-color: #2C3E50;
